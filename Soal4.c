@@ -4,20 +4,20 @@
 
 pthread_t faktor;
 
-void faktorial(){
-   int i, bil;
+void* faktorial(void *arg){
+   int faktor=1, i, bil;
+   printf("./faktorial ");
+   scanf(" %d", &bil);
    for(i=1; i<=bil; i++)
    {
 	faktor=i*faktor;
    }
+   printf("Hasil %d! = %d", bil, faktor);
 }
 
 int main(){
-   int faktor=1, bil;
-   printf("./faktorial ");
-   scanf("%d ", &bil);
-   faktorial();
-   printf("Hasil %d! = %d\n", bil, faktor);
    pthread_create(&faktor, NULL, &faktorial, NULL);
    pthread_join(faktor, NULL);
+
+   return 0;
 }
