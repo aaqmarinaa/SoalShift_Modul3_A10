@@ -8,14 +8,14 @@ int bil;
 void* faktorial(void *arg){
    int faktor = (int*) arg;
    int fac = 1, i;
-   for(i=1; i<=bil; i++)
+   for(i=1; i<=faktor; i++)
    {
 	fac=i*fac;
-	printf("Hasil %d! = %d", bil, fac);
+	printf("Hasil %d! = %d", faktor, fac);
    }
 }
 
-int main(int argc, char* argv){
+int main(int argc, char* argv[]){
    pthread_t t[argc];
    printf("./faktorial ");
    scanf(" %d", &bil);
@@ -26,6 +26,6 @@ int main(int argc, char* argv){
 	pthread_create(&(t[i]), NULL, &faktorial, (void*)temp);
    }
    for(i=1; i<=argc; i++){
-	pthread_join(t, NULL);
+	pthread_join(t[i], NULL);
    }
 }
