@@ -10,22 +10,19 @@ void *baca(void *arg){
    int hitung;
    char word[500];
    char Novel[999];
-   while(fscanf(fp, "%s\n", Novel) != EOF){
+   while(fscanf(fp, "%s\n", word) != EOF){
       if(strstr(Novel, word) != NULL)
          hitung++;
    }
-   printf("%d\n", hitung);
+   printf("%s : %d\n", word, hitung);
+   fclose(fp);
 }
-int main(int argc, char* argv[]){
+int main(int argc, char *argv[]){
    pthread_t novel[argc];
-   printf("./cari ");
-   scanf("%s", &word[]);
    int i, temp;
    for(i=1; i<=argc; i++){
 	temp = atoi(argv[i]);
-	pthread_create(&(novel[i]), NULL, &baca, (void*)temp);
-   }
-   for(i=1; i<=argc; i++){
+	pthread_create(&(novel[i]), NULL, &baca, (void*)argv[i]);
 	pthread_join(novel[i], NULL);
    }
 }
