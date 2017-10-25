@@ -5,14 +5,14 @@
 #include <string.h>
 
 int bil;
-void* faktorial(void *arg){
+void* faktorial(void* arg){
    int faktor = (int*) arg;
    int fac = 1, i;
    for(i=1; i<=faktor; i++)
    {
 	fac=i*fac;
-	printf("Hasil %d! = %d", faktor, fac);
    }
+	printf("Hasil %d! = %d", faktor, fac);
 }
 
 int main(int argc, char* argv[]){
