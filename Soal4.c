@@ -1,23 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <unistd.h>
+#include <string.h>
 
-pthread_t faktor;
-
+int bil;
 void* faktorial(void *arg){
-   int faktor=1, i, bil;
-   printf("./faktorial ");
-   scanf(" %d", &bil);
+   int faktor = (int*) arg;
+   int fac = 1, i;
    for(i=1; i<=bil; i++)
    {
-	faktor=i*faktor;
+	fac=i*fac;
+	printf("Hasil %d! = %d", bil, fac);
    }
-   printf("Hasil %d! = %d", bil, faktor);
 }
 
-int main(){
-   pthread_create(&faktor, NULL, &faktorial, NULL);
-   pthread_join(faktor, NULL);
-
-   return 0;
+int main(int argc, char* argv){
+   pthread_t t[argc];
+   printf("./faktorial ");
+   scanf(" %d", &bil);
+   int i, temp;
+   for(i=1; i<=argc; i++)
+   {
+	temp = atoi(argv[i]);
+	pthread_create(&(t[i]), NULL, &faktorial, (void*)temp);
+   }
+   for(i=1; i<=argc; i++){
+	pthread_join(t, NULL);
+   }
 }
