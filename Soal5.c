@@ -4,3 +4,7 @@
 #include <pthread.h>
 #include <unistd.h>
 
+pthread_t 
+int main(){
+   pthread_create(
+}
