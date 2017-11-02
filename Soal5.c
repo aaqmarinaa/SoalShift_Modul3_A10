@@ -4,25 +4,31 @@
 #include <pthread.h>
 #include <unistd.h>
 
+
+pthread_t t[100];
+int i;
+
 void *baca(void *arg){
+   char **input = (char**)arg;
    FILE *fp;
-   fp=fopen("Novel.txt", "r+");
-   int hitung;
-   char word[500];
-   char Novel[999];
-   while(fscanf(fp, "%s\n", word) != EOF){
-      if(strstr(Novel, word) != NULL)
-         hitung++;
+   fp=fopen("Novel.txt","r");
+   char x;
+   int a=0, hitung=0;
+   while((x=fgetc(fp)) != EOF){
+      if(x==input[i][a]) a++;
+      else if(a==strlen(input[i])){
+	   hitung++;
+	   a=0;
+      }
+      else a=0;
    }
-   printf("%s : %d\n", word, hitung);
-   fclose(fp);
+   printf("%s : %d\n", input[i], hitung);
 }
 int main(int argc, char *argv[]){
-   pthread_t novel[argc];
-   int i, temp;
-   for(i=1; i<=argc; i++){
-	temp = atoi(argv[i]);
-	pthread_create(&(novel[i]), NULL, &baca, (void*)argv[i]);
-	pthread_join(novel[i], NULL);
+   for(i=1;i<=argc;i++)
+   {
+	pthread_create(&(t[i]), NULL, &baca, (void*)argv);
+	pthread_join(t[i], NULL);
    }
+   return 0;
 }
